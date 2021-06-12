@@ -11,13 +11,8 @@
             </div>
                 <div class="padding">
                     <div class="card_container"> 
-<<<<<<< HEAD
                         <i @click="sendEmail(request)" name="accept" class="far fa-check-circle"></i>
                         <i  @click="reject()" name="reject" class="far fa-times-circle"></i>
-=======
-                        <em @click="sendEmail(request)" class="far fa-check-circle"></em>
-                        <em  @click="reject()" class="far fa-times-circle"></em>
->>>>>>> 14fd8570e6e3468969ef805ec7425d2a8fb1ffbf
                     </div>
                 </div>  
         </div> 

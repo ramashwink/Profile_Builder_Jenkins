@@ -12,15 +12,9 @@
             <div class="profile-info">
         
                 <div class="buttonposition">
-<<<<<<< HEAD
                   <button  href="#" name="sendRequest" @click="openstudentRequestDialog()"  v-if="isAnyUserLoggedIn && facultyisAvailable"  class="myButton"><i class="far fa-paper-plane"></i>Sent Request</button>
                   <button href="#" name="btn" @click="openeditDialog()" v-if="computedisUserLoggedIn" class="myButton"><i class="fas fa-cog"></i>Edit Profile</button>
                   <button href="#" name="endorseProfile" @click="openendorseDialog()" v-if="!computedisUserLoggedIn && !isAnyUserLoggedIn" class="myButton">Endorse Profile</button>
-=======
-                  <button  href="#" @click="openstudentRequestDialog()"  v-if="isAnyUserLoggedIn && facultyisAvailable"  class="myButton"><em class="far fa-paper-plane"></em>Sent Request</button>
-                  <button href="#" @click="openeditDialog()" v-if="computedisUserLoggedIn" class="myButton"><em class="fas fa-cog"></em>Edit Profile</button>
-                  <button href="#" @click="openendorseDialog()" v-if="!computedisUserLoggedIn && !isAnyUserLoggedIn" class="myButton">Endorse Profile</button>
->>>>>>> 14fd8570e6e3468969ef805ec7425d2a8fb1ffbf
                 </div>
              
 

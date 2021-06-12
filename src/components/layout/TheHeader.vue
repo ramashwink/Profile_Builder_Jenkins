@@ -6,13 +6,9 @@
             </h1>
             <ul>
                 <li><router-link to="/login" v-if="!isLoggedIn">Login</router-link></li>
-<<<<<<< HEAD
                 <!-- <li v-if="isLoggedIn"><router-link to="/requests">Requests</router-link></li> -->
                 <!-- <li v-else><router-link to="/auth">Login</router-link></li> -->
                 <li v-if="isLoggedIn"><router-link to="/login" @click="logout()" name="logout">Logout</router-link></li>
-=======
-                <li v-if="isLoggedIn"><router-link to="/login" @click="logout()">Logout</router-link></li>
->>>>>>> 14fd8570e6e3468969ef805ec7425d2a8fb1ffbf
             </ul>
         </nav>
     </header>

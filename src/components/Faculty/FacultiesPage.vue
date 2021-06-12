@@ -35,12 +35,8 @@
              <h5 class="msg" v-if="searchedProfile().length==0">No search Results</h5>
              <div name="faculty" v-on:click="goToSearch(facultyprofile)" class="eachpeople" v-for="facultyprofile in searchedProfile()" :key="facultyprofile._id">
                <search-item >
-<<<<<<< HEAD
                 <div :style="{ 'background-image': `url(${converturl(facultyprofile.ProfilePhotoPath) })` }"  class="profile-picture"  />
-=======
-                <div :style="{ 'background-image': `url(${converturl(facultyprofile.ProfilePhotoPath) })` }"  class="profile-picture" />
                 <ul>
->>>>>>> 14fd8570e6e3468969ef805ec7425d2a8fb1ffbf
                   <li class="name">
                     {{facultyprofile.FirstName}} {{facultyprofile.LastName}}  
                   </li>
