@@ -4,20 +4,20 @@
         <div class="publication-section">
             <div class="publication-content">
                 <label for="publication-name">Publication Name</label>
-                <input type="text" v-model="pname" class="publication-name full">
+                <input type="text" name="publicationName" v-model="pname" class="publication-name full">
                <div class="publication-date">
                     <div class="publication-start-date">
                         <label for="start-date">Start Date</label>
-                        <input  v-model="startdate" type="date" class="start-date half">
+                        <input  name="startDate" v-model="startdate" type="date" class="start-date half">
                     </div>
                     <div class="publication-end-date">
                         <label for="end-date">End Date</label>
-                        <input  v-model="enddate" type="date" class="end-date half">
+                        <input name="endDate" v-model="enddate" type="date" class="end-date half">
                     </div>
             </div>
             <div class="relative">
                   <label class="padding" for="project-link">Project Link</label>
-                  <input v-model="link" type="text" class="project-link full">
+                  <input name="link" v-model="link" type="text" class="project-link full">
             </div>
           
             </div>
@@ -26,17 +26,17 @@
       
         
         <div class="dialogbutton">
-            <button class="dialogpublicationbutton" @click="addnewPublication"  v-if="!doedit">Add</button>
-            <button class="dialogpublicationbutton" @click="addnewPublication"  v-if="doedit">Edit</button>
-            <button class="dialogdeletepublicationbutton" @click="deletePublication"  v-if="doedit">Delete</button>
+            <button name="add" class="dialogpublicationbutton" @click="addnewPublication"  v-if="!doedit">Add</button>
+            <button  name="edit" class="dialogpublicationbutton" @click="addnewPublication"  v-if="doedit">Edit</button>
+            <button  name="delete" class="dialogdeletepublicationbutton" @click="deletePublication"  v-if="doedit">Delete</button>
         </div>
 
      </base-dialog>
      <h2>Publications</h2>
-     <button v-if="computedisUserLoggedIn" class="publicationbutton" @click="opencloseDialog">Add a new Publication</button>
+     <button v-if="computedisUserLoggedIn" class="publicationbutton" name="addNewPublication" @click="opencloseDialog">Add a new Publication</button>
      <div class="publicationPadding">
         <div  v-for="singlePublication in facultyPublications" :key="singlePublication._id">
-            <p class="ptitle"><a @click="addViewCount(singlePublication._id)" :href="singlePublication.link">{{singlePublication.publicationName}}</a><i v-if="computedisUserLoggedIn" v-on:click="editpublication(singlePublication) " class=" edit fas fa-pen"></i></p>
+            <p class="ptitle"><a @click="addViewCount(singlePublication._id)" :href="singlePublication.link">{{singlePublication.publicationName}}</a><em v-if="computedisUserLoggedIn" v-on:click="editpublication(singlePublication) " class=" edit fas fa-pen"></em></p>
             <p class="pdate">{{startDate(singlePublication.startdate)}} to {{endDate(singlePublication.enddate)}}</p>  
               <hr>
         </div>
@@ -68,18 +68,17 @@ export default {
             this.$emit('addedAPublication');
             this.showDialog=false;
         },
-         startDate(startdate){
+        makedate(startdate){
             var d = new Date(startdate);
             var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-            var s=months[d.getMonth()]+" "+d.getFullYear();
-            return s;
+            return months[d.getMonth()]+" "+d.getFullYear();
+        },
+         startDate(startdate){
+            return this.makedate(startdate);
         },
           endDate(enddate){
               if(enddate!=null){
-                   var d = new Date(enddate);
-                   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-                   var s=months[d.getMonth()]+" "+d.getFullYear();
-                    return s;
+                return this.makedate(enddate);
               }
               else
               {
@@ -130,7 +129,7 @@ export default {
                             this.publicationid=""
                     }
                 } catch (error) {
-                   
+                    console.log(error);
                      this.error=error;
                     this.error=error.response.data.error;
                 }
@@ -149,7 +148,7 @@ export default {
                             this.publicationid=""
                         }
                     } catch (error) {
-                      
+                        console.log(error);
                         this.error=error;
                         this.error=error.response.data.error;
                 }                    

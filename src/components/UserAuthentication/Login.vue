@@ -2,14 +2,14 @@
     <div>
       <the-header></the-header>
       
-        <div class="box">
+        <div class="box" id="box">
             <h1>Login</h1>
                 <input type="email" name="email" placeholder="Email" v-model="email">
                 <input type="password" name="password" placeholder="Password" v-model="password">
             <div>
             <p class="error" v-if="error!=''">{{error}}</p>
             </div>
-            <button v-if="incorrect_login" @click="login">Login</button>
+            <button v-if="incorrect_login" @click="login" name="login">Login</button>
              <p @click="forgotpassword">Forgot Password</p>
         </div> 
         <div>
@@ -47,6 +47,12 @@ export default {
       forgotpassword(){
         this.$router.push("/ForgotPassword")
       },
+      onVerify(response){
+          if (response) {
+              console.log("true");
+          }
+            
+      },
       changeVisibility(){
         this.incorrect_login = !this.incorrect_login;
       },
@@ -55,18 +61,20 @@ export default {
       },
       
         async login(){
+            console.log("inside login "+localStorage.getItem('nooffailedlogins'));
+            console.log("Button Was clicked the email is "+this.email+" "+this.password);
             try {
                 const response =await AuthenticateService.login({
                 email:this.email,
                 password:this.password
             })
             localStorage.setItem('nooftimes', 0);
-         
+            console.log(response);
             this.$store.dispatch('setUser',response.data);
 
                 if(response.data.isAdmin==true)
                 {
-              
+                console.log("It is true that the logged in is Admin");
                 this.$router.replace('/admin');
                 }else{
                  
@@ -83,7 +91,7 @@ export default {
                      localStorage.setItem('nooftimes', this.nooftimes)
                      var timeouttime=2000*this.nooftimes;
                       this.changeError("Please Wait for "+timeouttime/1000+" seconds"); 
-                
+                     console.log(timeouttime);
                      const insidethis=this;
                      setTimeout(function(){ 
                         insidethis.changeVisibility();
@@ -123,7 +131,6 @@ export default {
   font-weight: 500;
 }
 .box input[type = "email"],.box input[type = "password"]{
-  border:0;
   background: none;
   display: block;
   margin: 20px auto;
@@ -141,7 +148,6 @@ export default {
   border-color: #2ecc71;
 }
 .box button{
-  border:0;
   background: none;
   display: block;
   margin: 20px auto;

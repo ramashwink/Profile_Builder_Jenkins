@@ -7,13 +7,13 @@
             </div>
             <div>
                 <h3>Available preferences</h3>
-                 <button @click="addtoselectedpreferences(preference)" class="tags" v-for="preference in Availablepreferences" :key="preference" >{{preference}}</button>
+                 <button name="availablePreferences" @click="addtoselectedpreferences(preference)" class="tags" v-for="preference in Availablepreferences" :key="preference" >{{preference}}</button>
             </div>
-           <button class="dialogpreferencebutton"  @click="addNewPreference"> &#10003;</button>
+           <button class="dialogpreferencebutton" name="tickButton" @click="addNewPreference"> &#10003;</button>
       
      </base-dialog>
      <h2>Preferences</h2>
-      <button  v-if="computedisUserLoggedIn " class="linkbutton" @click="opencloseDialog">Select Preferences</button>
+      <button  v-if="computedisUserLoggedIn " name="selectPreferences" class="linkbutton" @click="opencloseDialog">Select Preferences</button>
       <div class="center">
            <button class="displayedtags" v-for="preference in facultyProfilePreferences" :key="preference" >{{preference}}</button>
       </div>
@@ -36,8 +36,7 @@ export default {
     computed:{
         
         Availablepreferences(){
-            var difference = this.preferences.filter(x => this.selectedpreferences.indexOf(x) === -1);
-            return difference
+            return this.preferences.filter(x => this.selectedpreferences.indexOf(x) === -1);
         }
     },
     methods:{
@@ -45,7 +44,8 @@ export default {
             return  this.selectedpreferences;
         },
         async addNewPreference(){
- 
+            console.log("inside add");
+            console.log(this.selectedpreferences);
             if(this.selectedpreferences.length==0){
                 this.showDialog=true; 
                 this.error="Input has not been entered"
@@ -60,7 +60,7 @@ export default {
                          this.error=""
                     }
                 } catch (error) {
-                  
+                    console.log(error);
                      this.error=error;
                     this.error=error.response.data.error;
                 }
@@ -78,12 +78,13 @@ export default {
             this.selectedpreferences.push(preference);
         },
         removefromselectedpreferences(preference){
-  
+            console.log(preference);
+            console.log(this.selectedpreferences);
             var index = this.selectedpreferences.indexOf(preference);
             if (index !== -1) {
             this.selectedpreferences.splice(index, 1);
             }
-          
+            console.log(this.selectedpreferences);
         }
         
     }

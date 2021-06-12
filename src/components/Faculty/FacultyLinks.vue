@@ -6,56 +6,56 @@
             <label class="dialogbox" for="url">Enter the link:  </label>
             <input v-model="link" type="text" name="link">
             <span class="space">
-                <button class="dialoglinkbutton" @click="addnewLink" v-if="!doedit"> Add</button>
-                <button class="dialoglinkbutton" @click="addnewLink" v-if="doedit"> Edit</button>
-                <button class="dialoglinkbutton" @click="deletelink" v-if="doedit"> Delete</button>
+                <button class="dialoglinkbutton" name="add" @click="addnewLink" v-if="!doedit"> Add</button>
+                <button class="dialoglinkbutton" name="edit" @click="addnewLink" v-if="doedit"> Edit</button>
+                <button class="dialoglinkbutton" name="delete" @click="deletelink" v-if="doedit"> Delete</button>
             </span>
             <p class="error" v-if="error">{{error}}</p>
         </div> 
      </base-dialog>
      <h2>Links</h2>
-      <button v-if="computedisUserLoggedIn" class="linkbutton" @click="opencloseDialog">Add a new link</button>
+      <button v-if="computedisUserLoggedIn" class="linkbutton" name="addLink" @click="opencloseDialog">Add a new link</button>
       <div class="linkspadding">
         <div  class="divpadding" v-for="singlelink in facultyProfilelinks" :key="singlelink._id">
             <p class="eachlink" v-if="singlelink.link.includes('linkedin')">
-                <i class="fab fa-linkedin"></i> <a :href="singlelink.link">{{singlelink.link}} </a>
-                <i  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></i>
+                <em class="fab fa-linkedin"></em> <a :href="singlelink.link">{{singlelink.link}} </a>
+                <em  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></em>
             </p>
             <p class="eachlink" v-else-if="singlelink.link.includes('github')">
-                <i class="fab fa-github-square"></i><a :href="singlelink.link">{{singlelink.link}} </a>
-                <i  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></i>
+                <em class="fab fa-github-square"></em><a :href="singlelink.link">{{singlelink.link}} </a>
+                <em  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></em>
             </p>
             <p class="eachlink" v-else-if="singlelink.link.includes('facebook')">
-                <i class="fab fa-facebook-square"></i><a :href="singlelink.link">{{singlelink.link}}</a>
-                <i  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></i>
+                <em class="fab fa-facebook-square"></em><a :href="singlelink.link">{{singlelink.link}}</a>
+                <em v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></em>
             </p>
              <p class="eachlink" v-else-if="singlelink.link.includes('instagram')">
-               <i class="fab fa-instagram-square"></i><a :href="singlelink.link">{{singlelink.link}}</a>
-               <i  v-if="computedisUserLoggedIn"  @click="edit(singlelink)" class="far fa-edit"></i>
+               <em class="fab fa-instagram-square"></em><a :href="singlelink.link">{{singlelink.link}}</a>
+               <em  v-if="computedisUserLoggedIn"  @click="edit(singlelink)" class="far fa-edit"></em>
             </p>
             <p class="eachlink" v-else-if="singlelink.link.includes('twitter')">
-               <i class="fab fa-twitter-square"></i><a :href="singlelink.link">{{singlelink.link}}</a>
-               <i  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></i>
+               <em class="fab fa-twitter-square"></em><a :href="singlelink.link">{{singlelink.link}}</a>
+               <em  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></em>
             </p>
             <p class="eachlink" v-else-if="singlelink.link.includes('stackoverflow')">
-               <i class="fab fa-stack-overflow"></i><a :href="singlelink.link">{{singlelink.link}}</a>
-               <i  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></i>
+               <em class="fab fa-stack-overflow"></em><a :href="singlelink.link">{{singlelink.link}}</a>
+               <em  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></em>
             </p>
             <p class="eachlink" v-else-if="singlelink.link.includes('medium')">
-               <i class="fab fa-medium"></i><a :href="singlelink.link">{{singlelink.link}}</a>
-               <i  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></i>
+               <em class="fab fa-medium"></em><a :href="singlelink.link">{{singlelink.link}}</a>
+               <em  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></em>
             </p>
             <p class="eachlink" v-else-if="singlelink.link.includes('reddit')">
-               <i class="fab fa-reddit-square"></i><a :href="singlelink.link">{{singlelink.link}}</a>
-               <i  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></i>
+               <em class="fab fa-reddit-square"></em><a :href="singlelink.link">{{singlelink.link}}</a>
+               <em  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></em>
             </p>
              <p class="eachlink" v-else-if="singlelink.link.includes('google')">
-               <i class="fab fa-google"></i><a :href="singlelink.link">{{singlelink.link}}</a>
-               <i  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></i>
+               <em class="fab fa-google"></em><a :href="singlelink.link">{{singlelink.link}}</a>
+               <em  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></em>
             </p>
              <p class="eachlink" v-else>
-               <i class="fas fa-external-link-alt"></i><a :href="singlelink.link">{{singlelink.link}}</a>
-               <i  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></i>
+               <em class="fas fa-external-link-alt"></em><a :href="singlelink.link">{{singlelink.link}}</a>
+               <em  v-if="computedisUserLoggedIn" @click="edit(singlelink)" class="far fa-edit"></em>
             </p>
             
             
@@ -104,7 +104,7 @@ export default {
                          this.error=""
                     }
                 } catch (error) {
-                   
+                    console.log(error);
                      this.error=error;
                     this.error=error.response.data.error;
                 }
@@ -119,7 +119,7 @@ export default {
                          this.error=""
                     }
                 } catch (error) {
-                 
+                    console.log(error);
                      this.error=error;
                     this.error=error.response.data.error;
                 }

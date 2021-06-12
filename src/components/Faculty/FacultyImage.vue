@@ -7,12 +7,11 @@
         <button class="dialogprofilebutton"> Add</button>
        </form>
      </base-dialog>
-    <img  :src="srcdest" :style="{ 'background-image': `url(${srcdest})` }"  class="profile-picture" >
+    <div  :style="{ 'background-image': `url(${srcdest})` }"  class="profile-picture" />
     <button v-if="computedisUserLoggedIn" @click="opencloseDialog" class="profile-picture-button" >+</button>
 </div>
 </template>
 <script>
-import firebase from 'firebase';
 import FetchingEachFacultyProfile from '@/services/FetchingEachFacultyProfile';
 export default {
     props:['id','facultyprofilephotolink','computedisUserLoggedIn'],
@@ -29,14 +28,15 @@ export default {
        var fileloc="";
       if(this.facultyprofilephotolink!=null)
       {
-        fileloc=this.facultyprofilephotolink;
+        var filename = this.facultyprofilephotolink.replace(/^.*[\\]/, '');
+       fileloc="http://localhost:8081/upload/"+filename;
       }
       else
       {
-          // fileloc="https://profile-builder-deploy.herokuapp.com/public/upload/"+"default.png";
-           fileloc= "https://i.stack.imgur.com/l60Hf.png";
+          fileloc="http://localhost:8081/upload/"+"default.png";
       }
-
+      console.log("Inside watcher "+this.facultyprofilephotolink);
+      console.log("Inside file loca "+fileloc);
       this.srcdest=fileloc;
    },
   watch:{
@@ -44,14 +44,15 @@ export default {
        var fileloc="";
       if(this.facultyprofilephotolink!=null)
       {
-        fileloc=this.facultyprofilephotolink;
+        var filename = this.facultyprofilephotolink.replace(/^.*[\\]/, '');
+       fileloc="http://localhost:8081/upload/"+filename;
       }
       else
       {
-          // fileloc="https://profile-builder-deploy.herokuapp.com/public/upload/"+"default.png";
-          fileloc= "https://i.stack.imgur.com/l60Hf.png";
+          fileloc="http://localhost:8081/upload/"+"default.png";
       }
-
+      console.log("Inside watcher "+this.facultyprofilephotolink);
+      console.log("Inside file loca "+fileloc);
       this.srcdest=fileloc;
      }
       
@@ -62,22 +63,23 @@ export default {
         },
        async  addNewProfilePhoto(){
                this.showDialog=false;
-               var d=new Date();
-                var filename2='photos/'+d;
-                var storageRef=firebase.storage().ref(filename2).put(this.file[0]);
-                storageRef.on(`state_changed`,snapshot=>{snapshot*10;}, error=>{console.log(error.message)},()=>{
-                        storageRef.snapshot.ref.getDownloadURL().then(async(url)=>{
-                          this.pictureurl =url;
-                        
-                          const response=await FetchingEachFacultyProfile.addFacultyProfilePhoto({id:this.id,pictureurl:url});
-                          if(response.data.message==="success"){
-                                this.$emit('addedAProfilePhoto',true)
-                                this.previewImage=""
-                                this.error=""
-                              }
-                        });
-                      }
-                   );
+              
+               console.log(this.file);
+               const formData=new FormData();
+               formData.append('id',this.id)
+               formData.append('profilepic',this.file[0])
+                try {
+                    const response=await FetchingEachFacultyProfile.addFacultyProfilePhoto(formData);
+                    if(response.data.message==="success"){
+                        this.$emit('addedAProfilePhoto',true)
+                        this.previewImage=""
+                         this.error=""
+                    }
+                } catch (error) {
+                    console.log(error);
+                     this.error=error;
+                    this.error=error.response.data.error;
+                }
         },
           opencloseDialog(){
         
@@ -100,7 +102,7 @@ export default {
             this.previewImage = e.target.result
           }
           reader.readAsDataURL(file[0])
-     
+         console.log(file[0]);
           this.$emit('input', file[0])
         }
       }

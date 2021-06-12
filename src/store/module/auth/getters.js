@@ -8,11 +8,12 @@ export default{
     },
     isUserLoggedIn(state)
     {
+      console.log("State of user is "+!!state.token);
       return !!state.token;
     },
     isAuthenticated(state)
     {
-  
+      console.log(state);
       return !!state.token;
     },
     idofuserloggedIn(state)
@@ -24,8 +25,4 @@ export default{
       return state.isAdminLoggedIn;
     }
    
-  
-    // didAutoLogout(state){
-    //   return state.didAutoLogout;
-    // }
 }

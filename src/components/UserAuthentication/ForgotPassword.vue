@@ -61,7 +61,7 @@ export default {
     
       if(this.email=='' || (this.description=='' && this.problem=="Report An Bug"))
       {
- 
+        console.log("inside");
         this.error="Please enter the Necessary details";
       }
       else

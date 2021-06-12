@@ -13,7 +13,7 @@ export default{
     },
     async checkupdatestudents(context){ 
      
-        source = new EventSource('https://profile-builder-deploy.herokuapp.com/check-student-updates');
+        source = new EventSource('http://localhost:8081/check-student-updates');
         source.onmessage = function(e) {
             const students=[];
        

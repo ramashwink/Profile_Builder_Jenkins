@@ -86,6 +86,8 @@ export default {
     },
     methods:{
         checktoShow(facultyProject){
+            console.log(":::::::::::::::;;;;;;;;");
+            console.log(this.isAnyUserLoggedIn);
             if(!this.isAnyUserLoggedIn){
                 return true;
             }
@@ -161,7 +163,7 @@ export default {
                             this.error=""
                         }
                     } catch (error) {
-               
+                        console.log(error);
                         this.error=error;
                         this.error=error.response.data.error;
                     } 
@@ -187,7 +189,7 @@ export default {
                             this.error=""
                         }
                     } catch (error) {
-                       
+                        console.log(error);
                         this.error=error;
                         this.error=error.response.data.error;
                     }
@@ -265,6 +267,8 @@ export default {
     font-family: 'Montserrat', sans-serif;
     font-size: 0.8rem ;
     font-weight: 400;
+      padding-top: 5px;
+     padding-bottom: 5px;
 }
 .associated{
     font-family: 'Montserrat', sans-serif;
@@ -389,10 +393,7 @@ input{
     position: absolute;
     right: 30px;
 }
-.contributers{
-    padding-top: 5px;
-     padding-bottom: 5px;
-}
+
 .project-url{
     padding-top: 5px;
      padding-bottom: 5px;

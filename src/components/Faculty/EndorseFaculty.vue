@@ -31,7 +31,7 @@ export default {
     },
     methods:{
          opencloseDialog(){
-        
+            console.log("in");
              this.$emit('finished')
         },        
     async endorse(){

@@ -6,45 +6,63 @@
                 <router-link to="/"> Profile Builder</router-link> 
             </h1>
              <div class="search-bar">     
-                    <span><input type="text" autoComplete="on" :list="allFacultyProfiles" v-model="search" class="search" placeholder="Search" ><i class="fas fa-search"></i> </span>
+<<<<<<< HEAD
+                    <span><input type="text" autoComplete="on" :list="allFacultyProfiles" v-model="search" name="search" class="search" placeholder="Search" ><i class="fas fa-search"></i> </span>
+                    <div class="makeflex" name="search">
+=======
+                    <span><input type="text" autoComplete="on" :list="allFacultyProfiles" v-model="search" class="search" placeholder="Search" ><em class="fas fa-search"></em> </span>
                     <div class="makeflex">
+>>>>>>> 14fd8570e6e3468969ef805ec7425d2a8fb1ffbf
                       <ul class="SelectItems">
-                      <li   v-on:click="goToSearch($event)" class="SelectListItems" v-for="facultyprofile in allFacultyProfiles" :id="facultyprofile._id" :key="facultyprofile._id" >
-                       <img  :src="facultyprofile.ProfilePhotoPath" :style="{ 'background-image': `url(${facultyphotolink()})` }"  class="imagePreviewWrapper" >
-                        <!-- <p class="imagePreviewWrapper" :style="{ 'background-image': `url(${link()})` }" ></p> -->
-                        <p class="searcht">{{facultyprofile.FirstName}}  {{facultyprofile.LastName}}</p> </li>
+                      <li  v-on:click="goToSearch($event)" class="SelectListItems" v-for="facultyprofile in allFacultyProfiles" :id="facultyprofile._id" :key="facultyprofile._id" >
+                        <p class="imagePreviewWrapper" :style="{ 'background-image': `url(${link(facultyprofile.ProfilePhotoPath)})` }" ></p>
+                        <p name="search" class="searcht">{{facultyprofile.FirstName}}  {{facultyprofile.LastName}}</p> </li>
                       </ul>
                     </div>
             </div>
-            <ul >
+            <ul>
                 <li>
-                    <div v-if="!isAdminLoggedIn" class="container-items">
-                       <img  @click="loadprofile()" v-if="facultyphotolink()!=null" :src="facultyphotolink()" :style="{ 'background-image': `url(${facultyphotolink()})` }" class="headerimagePreviewWrapper" >
-                         <!-- <p @click="loadprofile()" v-if="facultyphotolink()!=null" class="headerimagePreviewWrapper" :style="{ 'background-image': `url(${facultyphotolink()})` }" ></p> -->
+                    <div class="container-items">
+                         <p @click="loadprofile()" v-if="facultyphotolink()!=null" class="headerimagePreviewWrapper" :style="{ 'background-image': `url(${facultyphotolink()})` }" ></p>
                     </div> 
                 </li>
                 <li> 
-                    <div class="container-items">
+<<<<<<< HEAD
+                    <div class="container-items" name="home">
                          <router-link class="navigation-item" to="/home" ><i class="fas fa-home"></i> Home</router-link> <span class="sr-only"></span>
                     </div> 
                 </li>
                 <li>
-                    <div class="container-items" v-if="isLoggedIn && !isAdminLoggedIn">
+                    <div class="container-items" v-if="isLoggedIn" name="stats">
                       <router-link class="navigation-item" :to=statsRoute ><i class="fas fa-chart-bar"></i>Stats</router-link> <span class="sr-only"></span>
+=======
+                    <div class="container-items">
+                         <router-link class="navigation-item" to="/home" ><em class="fas fa-home"></em> Home</router-link> <span class="sr-only"></span>
+                    </div> 
+                </li>
+                <li>
+                    <div class="container-items" v-if="isLoggedIn">
+                      <router-link class="navigation-item" :to=statsRoute ><em class="fas fa-chart-bar"></em>Stats</router-link> <span class="sr-only"></span>
+>>>>>>> 14fd8570e6e3468969ef805ec7425d2a8fb1ffbf
                         
                     </div> 
                 </li>
                 <li>
-                    <div class="container-items" v-if="isLoggedIn &&!isAdminLoggedIn">
+<<<<<<< HEAD
+                    <div class="container-items" v-if="isLoggedIn" name="requests">
                       <router-link class="navigation-item" :to=requestsRoute ><i class="far fa-comment-alt"></i>Requests <span v-if="requestsnumber()!=0" class="badge">{{requestsnumber()}}</span></router-link> <span class="sr-only"></span>
+=======
+                    <div class="container-items" v-if="isLoggedIn">
+                      <router-link class="navigation-item" :to=requestsRoute ><em class="far fa-comment-alt"></em>Requests <span v-if="requestsnumber()!=0" class="badge">{{requestsnumber()}}</span></router-link> <span class="sr-only"></span>
+>>>>>>> 14fd8570e6e3468969ef805ec7425d2a8fb1ffbf
                         
                     </div> 
                 </li>
                 <div class="container-login" v-if="!isLoggedIn">
-                      <li><router-link to="/login" v-if="!isLoggedIn">Login</router-link></li>
+                      <li><router-link name="login" to="/login" v-if="!isLoggedIn">Login</router-link></li>
                 </div>
                 <div class="container-login" v-if="isLoggedIn">
-                      <li><router-link to="/login" @click="logout()">Logout</router-link></li>
+                      <li><router-link to="/login" @click="logout()" name="logout">Logout</router-link></li>
                 </div>  
             </ul>
         </nav>
@@ -65,6 +83,7 @@ export default {
   },
    computed:{
      statsRoute(){
+       console.log("the route "+this.$route);
        return "/faculties/"+this.$store.getters.idofuserloggedIn +"/stats"
      },
      requestsRoute(){
@@ -73,12 +92,10 @@ export default {
     isLoggedIn(){
       return this.$store.getters.isUserLoggedIn;
     },
-    isAdminLoggedIn(){
-      return this.$store.getters.isAdminLoggedIn;
-    },
     allPhotoProfiles(){
       let allPhotoProfiles =[]
       allPhotoProfiles= this.$store.getters['allFacultyProfiles'];
+      console.log("dss "+allPhotoProfiles);
       return allPhotoProfiles;
     },
      allFacultyProfiles()
@@ -117,25 +134,18 @@ export default {
       var user_id=this.$store.getters.idofuserloggedIn;
       var profiles=this.allPhotoProfiles;
       
-      if(user_id!=null && profiles.length!=0 )
+      if(user_id!=null && profiles.length!=0)
       {
 
           var facultyprofile_photo=profiles.find(item => item._id ===user_id );
           var filename;
-
-          if(facultyprofile_photo==null){
-            return "https://i.stack.imgur.com/l60Hf.png";
-          }
           if(facultyprofile_photo.ProfilePhotoPath==null){
-            filename= "default.png";
+            filename= "default.png"
           }
           else{
             filename = facultyprofile_photo.ProfilePhotoPath.replace(/^.*[\\]/, '');
           }
-          if( filename== "default.png"){
-            return "https://i.stack.imgur.com/l60Hf.png";
-          }
-          fileloc=filename;
+          fileloc="http://localhost:8081/upload/"+filename;
       }
       else
       {
@@ -144,11 +154,11 @@ export default {
       return fileloc;
     },
     link(thelink){
+      console.log("the link"+thelink);
       if(thelink==null){
-        // return "https://profile-builder-deploy.herokuapp.com/public/upload/"+"default.png";
-        return "https://i.stack.imgur.com/l60Hf.png";
+        return "http://localhost:8081/upload/"+"default.png";
       }
-      return "https://profile-builder-deploy.herokuapp.com/public/upload/"+thelink.replace(/^.*[\\]/, '');
+      return "http://localhost:8081/upload/"+thelink.replace(/^.*[\\]/, '');
     },
     async goToSearch(event){
       await this.$router.push("/faculties/"+event.currentTarget.id);
@@ -176,6 +186,14 @@ export default {
 }
 </script>
 <style scoped>
+@media only screen and (max-device-width: 480px) {
+h1 a {
+  color: #111110;
+  margin: 0;
+}
+
+}
+/*DESKTOP*/
 .searcht{
   padding-left: 10%;
 }

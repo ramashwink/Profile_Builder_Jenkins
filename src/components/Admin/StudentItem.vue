@@ -1,8 +1,8 @@
 <template>
     <div  class="card">
-        <i @click="deletestudent" class="fas  fa-user-times"></i>
-        <h4><i class="fas fa-id-card-alt"></i>  Student Roll Number: <span>{{rollno}}</span></h4>
-        <h4><i class="fas fa-key"></i> Student Token: <span>{{ token }}</span></h4>
+        <em @click="deletestudent" class="fas  fa-user-times"></em>
+        <h4><em class="fas fa-id-card-alt"></em>  Student Roll Number: <span>{{rollno}}</span></h4>
+        <h4><em class="fas fa-key"></em> Student Token: <span>{{ token }}</span></h4>
         <p class="left">Created At : {{ created_at }}  </p>
     </div>
 </template>
@@ -14,9 +14,9 @@ export default {
     props:['rollno','token','created_at'],
   methods:{
     async deletestudent(){
-    
+      console.log(this.rollno);
        DeleteStudent.deleteStudent({rollno:this.rollno}).then((response)=>{
-          
+           console.log("Inside After promise");
            if(response.status==200){
                this.$emit('messageFromStudentChild','valueChanged')
            }

@@ -3,66 +3,66 @@
      <base-dialog :show=true  title="Edit Profile" @close="opencloseDialog">
         <div class="container">
             <div class="tabs">
-                <button v-on:click="changetabs_p" class="buttontabs">Change Password</button>
+                <button name="changePassword" v-on:click="changetabs_p" class="buttontabs">Change Password</button>
             </div>
             <div class="tabs">
-                <button  @click="changetabs_d" class="buttontabs">Edit Personal Details</button>
+                <button  id="editPersonalDetails" @click="changetabs_d" class="buttontabs">Edit Personal Details</button>
             </div>
         </div>
         <div>
             <div v-if="changepassword">
                 <div class="password_container">
                     <h5>Enter your Old Password</h5>
-                    <input v-model="oldpass" class="password" type="password">
+                    <input name="oldPassword" v-model="oldpass" class="password" type="password">
                 </div>
                 <div class="password_container" >
                     <h5>Enter your New Password</h5>
-                    <input  v-model="newpass" class="password" type="password">
+                    <input  name="newPassword" v-model="newpass" class="password" type="password">
                 </div>
                 <p class="err" v-if="error!=''">{{perror}}</p>
                 <div class="password_container ">
-                    <button class="pbutton" @click="changePassword">Change</button>
+                    <button name="change" class="pbutton" @click="changePassword">Change</button>
                 </div>
                 
             </div>
             <div v-if="changedetails">
                 <div class="c">
                     <h5  class="h">First Name : </h5>
-                    <input class="i" type="text" v-model="fname" >
+                    <input name="fname" class="i" type="text" v-model="fname" >
                 </div>
                 <div class="c" >
                     <h5 class="h">Last Name : </h5>
-                    <input class="i" type="text" v-model="lname" >
+                    <input name="lname" class="i" type="text" v-model="lname" >
                 </div>
                 <div class="c">
                     <h5 class="h">Address : </h5>
-                    <input class="i"  type="text" v-model="address" >
+                    <input class="i" name="address" type="text" v-model="address" >
                 </div>
                 <div class="c">
                     <h5 class="h" >City : </h5>
-                    <input class="i" type="text"  v-model="city" >
+                    <input class="i" type="text" name="city" v-model="city" >
                 </div>
                 <div class="c">
                     <h5 class="h">Phone Number :</h5>
-                     <input class="i" type="text" v-model="phoneNo" >
+                     <input class="i" type="text" name="phone" v-model="phoneNo" >
                 </div>
                 <div class="c">
                     <h5 class="h">Department :</h5>
-                    <input class="i" type="text"  v-model="department">
+                    <input class="i" type="text" name="department" v-model="department">
                 </div>
                 <div class="c">
                     <h5 class="h">Description :</h5>
-                    <input class="i" type="text"  v-model="description">
+                    <input class="i" type="text" name="description"  v-model="description">
                 </div>
                 <div class="c">
                     <h5 class="h">Project Availability :</h5>
-                    <input class="i" type="checkbox"  v-model="availability">
+                    <input class="i" type="checkbox" name="projectAvailability" v-model="availability">
                 </div>
                 
                 <p class="err" v-if="error!=''">{{derror}}</p>
                 <div class="c ">
                     
-                    <button class="pbutton" @click="editpersonal">Edit</button>
+                    <button name="edit" class="pbutton" @click="editpersonal">Edit</button>
                 </div>
             </div>
         </div>
@@ -97,11 +97,11 @@ export default {
     },
     methods:{
         opencloseDialog(){
-          
+            console.log("in");
              this.$emit('finished')
         },
         changetabs_p(){
-          
+            console.log("inisde");
             this.changepassword=true;
             this.changedetails=false;
         },

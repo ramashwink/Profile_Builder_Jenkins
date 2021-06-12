@@ -17,7 +17,6 @@ import ForgotPassword from '../components/UserAuthentication/ForgotPassword.vue'
 import store from '../store/index.js'
 const router=createRouter({
     history:createWebHistory(),
-    mode:"history",
     routes:[
         {path:'/',redirect:'/home'},
         {path:'/admin/register',component:AdminRegister,meta:{ requiresAdminAuth:true, title: 'Admin' }},
@@ -55,10 +54,8 @@ router.beforeEach(async function(to,_,next){
     }
     else if(to.meta.requiresAdminAuth && store.getters.isAuthenticated  && !store.getters.isAdminLoggedIn)
     {
-        next('/NotFound');
-    }
-    else if(to.meta.requiresAdminAuth && !store.getters.isAuthenticated  && !store.getters.isAdminLoggedIn){
-
+        console.log("requires requiresAdminAuth");
+        console.log(store.getters.isAdminLoggedIn);
         next('/NotFound');
     }
     else if(to.meta.requiresUnauth && store.getters.isAuthenticated  && store.getters.isAdminLoggedIn)
@@ -76,8 +73,18 @@ router.beforeEach(async function(to,_,next){
 
     else
     {
+        // console.log("Inside else next");
+        // console.log(store.getters.isAdminLoggedIn);
+        // console.log("Inside else next store.getters.isAuthenticated");
+        // console.log(store.getters.isAuthenticated);
         next()
     }
  });
 
+ router.afterEach((to)=>{
+    console.log(to.params);
+    // if(to.params!=null){
+        
+    // }
+ });
 export default router;

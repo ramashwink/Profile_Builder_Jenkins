@@ -3,20 +3,19 @@
       <ul class="topspacing">
                 <li class="pname">{{facultyproject.projectName}} <p  class="cworking" v-if="facultyproject.currentlyworking"> <span class="dot">&#8226;</span> In Progress</p> </li>
                 <li class="date">  {{startDate(facultyproject.startdate)}} <span v-if="facultyproject.enddate!=null"> to </span>  {{endDate(facultyproject.enddate)}}</li>
-                <li v-if="computedisUserLoggedIn"><i v-on:click="editProject() " class=" edit fas fa-pen"></i></li>
+                <li v-if="computedisUserLoggedIn"><em v-on:click="editProject() " class=" edit fas fa-pen"></em></li>
                 <li class="cworking" v-if="facultyproject.currentlyworking"> </li>
                  
                 
-                <li  class="show" @click="showtheDescription" v-if="!showDescription"><i class="fas fa-chevron-down"></i></li>
+                <li  class="show" @click="showtheDescription" v-if="!showDescription"><em class="fas fa-chevron-down"></em></li>
                 
                 <div v-if="showDescription">
                     <li class="pdesc">{{facultyproject.project_description}}</li>
                      <li v-if="facultyproject.contributers!=''"> <span class="contributers">Contributers: </span> {{facultyproject.contributers}}</li>
-                    <!-- <li> <span class="associated">Related Field </span>  {{facultyproject.associated_with}}</li> -->
                 <li class="purl">  <a class="noline" :href="facultyproject.project_url">See Project</a>  </li>
                     
                 </div>
-                <li class="show" @click="showtheDescription" v-if="showDescription"><i class="fas fa-chevron-up"></i></li>
+                <li class="show" @click="showtheDescription" v-if="showDescription"><em class="fas fa-chevron-up"></em></li>
                
                 
         </ul>
@@ -39,18 +38,17 @@ export default {
         editProject(){
             this.$emit('editCalled')
         },
-        startDate(startdate){
+          makedate(startdate){
             var d = new Date(startdate);
             var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-            var s=months[d.getMonth()]+" "+d.getFullYear();
-            return s;
+            return months[d.getMonth()]+" "+d.getFullYear();
+        },
+        startDate(startdate){
+            return  this.makedate(startdate)
         },
           endDate(enddate){
               if(enddate!=null){
-                   var d = new Date(enddate);
-                   var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-                   var s=months[d.getMonth()]+" "+d.getFullYear();
-                    return s;
+                    return this.makedate(enddate)
               }
               else
               {

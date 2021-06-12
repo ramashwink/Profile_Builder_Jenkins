@@ -1,15 +1,15 @@
 <template>
     <div  class="card">
-        <i @click="deleteFacultyRequest" class="far fa-trash-alt"></i>
-        <h4><i class="fas fa-envelope-open"></i>  Faculty Email: <span>{{email}}</span></h4>
-        <h4><i class="fa fa-exclamation-circle"></i> Issue: <span>{{ problem }}</span></h4>
+        <em @click="deleteFacultyRequest" class="far fa-trash-alt"></em>
+        <h4><em class="fas fa-envelope-open"></em>  Faculty Email: <span>{{email}}</span></h4>
+        <h4><em class="fa fa-exclamation-circle"></em> Issue: <span>{{ problem }}</span></h4>
         
         
         <div class="center">
            <h5  @click="showtheDescription" v-if="problem=='Report An Bug'">Show Description</h5>
            <p v-if="showDescription">{{description}}</p>
            <h4 v-if="completed" class="green">Done</h4>
-           <button @click="resetPassword" class="outline" v-if="problem=='Forgot Password' && !completed">Reset Password</button>
+           <button name="reset" @click="resetPassword" class="outline" v-if="problem=='Forgot Password' && !completed">Reset Password</button>
         </div>
        
         <p class="left">Created At : {{ created_at }}  </p>
@@ -34,23 +34,24 @@ export default {
       this.showDescription=!this.showDescription;
     },
     async resetPassword(){
-     
+      console.log(this.id);
       try {
             const response =await AuthenticateService.changePassword({email:this.email,id:this.id})
             if(response.data.msg=="Successfull"){
-               
+                console.log("successfull");
                this.$emit('messageFromStudentChild','valueChanged')
             }
-            
+            console.log(response);
             } catch (error) {
-                
+                console.log(error);
                 this.error=error.response.data.error;
             }
   
     },
     async deleteFacultyRequest(){
-     
+      console.log(this.id);
        DeleteForgetRequest.deleteForgetRequest({id:this.id}).then((response)=>{
+           console.log("Inside After promise");
            if(response.status==200){
                this.$emit('messageFromStudentChild','valueChanged')
            }

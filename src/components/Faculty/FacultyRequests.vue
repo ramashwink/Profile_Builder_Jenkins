@@ -2,13 +2,13 @@
     <div class="topContainer">
         <user-header></user-header>
         <div class="container">
-            <div @click="pending()" class="tab">
+            <div @click="pending()" class="tab" name="pendingRequest">
                 <p class="tab_text">Pending Requests</p>
             </div>
-            <div @click="accepted()" class="tab">
+            <div @click="accepted()" class="tab" name="acceptedRequest">
                 <p class="tab_text">Accepted Requests</p>
             </div>
-            <div @click="settings()" class="tab">
+            <div @click="settings()" class="tab" name="settingsRequest">
                 <p class="tab_text">Request Settings</p>
             </div>
 
@@ -20,7 +20,7 @@
                     <request-card  :request=request :facultyProfileOne=facultyProfileOne @reload="refresh()"></request-card>
                 </div>
             </div>
-            <div v-if="acceptedrequest">
+            <div v-if="acceptedrequest" >
                 <p class="content"  v-if="acceptedrequests.length==0">No Accepted Requests</p>
                 <div class="send" v-for="acceptedrequest in acceptedrequests" :key=acceptedrequest.studentRollNo>
                     <acceptedrequest-card  :request=acceptedrequest :facultyProfileOne=facultyProfileOne @reload="refresh()"></acceptedrequest-card>
@@ -50,7 +50,6 @@
     </div>
 </template>
 <script>
-// import emailjs from 'emailjs-com';
 import FetchingEachFacultyProfile from '@/services/FetchingEachFacultyProfile';
 import RequestCard from "./RequestCard.vue";
 import AcceptedrequestCard from "./AcceptedRequestCard.vue";
@@ -91,7 +90,7 @@ export default {
                 await this.$store.dispatch("loadthefacultyprofile",{id:this.facultyId});
                  await this.$store.dispatch("loadallfacultyprofiles");  
                 this.facultyProfileOne=this.$store.getters["facultyprofile"];
-                
+                console.log("inside refresh");  
         },
         pending(){
             this.acceptedrequest=false;
@@ -112,10 +111,10 @@ export default {
         async loadfacultyprofile() 
             {
                 await this.$store.dispatch("loadthefacultyprofile",{id:this.facultyId});
-                
+                console.log("finished");   
             },
         async updateSettings(){
-          
+            console.log("inside updateSettings");
             await FetchingEachFacultyProfile.updateSettings({id:this.facultyId,requests_cap:this.requests_cap,requests_select:this.requests_select});
             this.refresh();
         },

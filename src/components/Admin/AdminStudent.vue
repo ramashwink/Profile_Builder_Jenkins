@@ -3,7 +3,7 @@
     <h1>Students</h1>
     <base-card>
     <input class="searchbar" type="text" v-model="searchkey" placeholder="Search..">
-    <button  @click="registerStudent">Register a new Student</button>
+    <button name="btn" @click="registerStudent">Register a new Student</button>
      <h4 v-if="students.length==0">There are no students available</h4>
     <p v-for="student in students" :key="student.studentRollNo">
     <student-item  @messageFromStudentChild="childMessageRecieved"  :rollno=student.studentRollNo :created_at=student.created_at :token=student.student_token></student-item> 
@@ -87,15 +87,13 @@ export default {
 .searchbar {
   float: right;
   padding: 6px;
-  border: none;
+
   margin-top: 8px;
   margin-right: 16px;
   font-size: 17px;
+    border: 1px solid #ccc;
 }
 
-.searchbar {
-    border: 1px solid #ccc;
-  }
  
   html {
   font-family: "Roboto", sans-serif;

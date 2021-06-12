@@ -2,6 +2,7 @@ import Api from '@/services/Api';
 
 export default{
     fetchFacultyProfile(credentials){
+        console.log(credentials);
         return Api().post('fetchTheFacultyProfile',credentials);
     },
     addFacultyBasicDetails(credentials){
@@ -45,7 +46,8 @@ export default{
     },
     sendEmail(data)
     {
-        return Api().post("https://api.emailjs.com/api/v1.0/email/send",data);
+        // https://api.emailjs.com/api/v1.0/email/send
+        return Api().post('sample',data);
     },
     updateRequest(credentials){
         return Api().post('updateRequest',credentials);

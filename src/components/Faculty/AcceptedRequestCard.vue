@@ -11,7 +11,7 @@
             </div>
             <div class="padding">
                 <div class="card_container"> 
-                    <i @click="deleterequest()" class="far fa-trash-alt"></i>
+                    <em @click="deleterequest()" class="far fa-trash-alt"></em>
                 </div>
             </div>  
         </div> 

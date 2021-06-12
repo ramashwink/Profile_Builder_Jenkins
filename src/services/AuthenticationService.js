@@ -15,7 +15,10 @@ export default{
     //     return Api().post('checkAdmin',credentials);
     // },
     checkUser(credentials){
-        return Api().post('checkUser',{token: credentials});
+        console.log(credentials);
+        return Api().get('checkUser',  { headers:
+            { Authorization: credentials }
+        });
     }
 }
 

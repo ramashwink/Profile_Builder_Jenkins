@@ -1,9 +1,13 @@
 <template>
     <div  class="card">
-        <i @click="deleteuser" class="fas  fa-user-times"></i>
+<<<<<<< HEAD
+        <i name="delete" @click="deleteuser" class="fas  fa-user-times"></i>
+=======
+        <em @click="deleteuser" class="fas  fa-user-times"></em>
+>>>>>>> 14fd8570e6e3468969ef805ec7425d2a8fb1ffbf
         
-        <h4><i class="far fa-id-badge"> </i>   Faculty Id: <span>{{id}}</span></h4>
-        <h4><i class="far fa-envelope"></i> Faculty Email: <span>{{ email }}</span></h4>
+        <h4><em class="far fa-id-badge"> </em>   Faculty Id: <span>{{id}}</span></h4>
+        <h4><em class="far fa-envelope"></em> Faculty Email: <span>{{ email }}</span></h4>
         <p class="left">Created At : {{ created_at }} <span class="right">Modified At: {{ modified_at }}</span> </p>
     </div>
 </template>
@@ -15,7 +19,7 @@ export default {
     props:['id','email','created_at','modified_at','isAdmin'],
   methods:{
     async deleteuser(){
-     
+      console.log(this.id);
        DeleteFaculty.deleteFaculty({id:this.id}).then((response)=>{
           if(response.status==200){
              this.$emit('messageFromChild','valueChanged')

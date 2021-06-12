@@ -2,7 +2,7 @@ import AuthenticateService from '@/services/AuthenticationService';
 export default{
     setUser(context,payload)
     {
-
+        console.log(payload);
         const newpayload={
             userId:payload.user._id,
             expiresIn:payload.expiresIn,
@@ -21,10 +21,10 @@ export default{
         {
             try {
                 const response =await AuthenticateService.checkUser(token);
+                console.log(response);
                 var tuserId= response.data.id;
-
                 var isAdmin=response.data.isAdmin;
-                if(userId!=tuserId ){
+                if(userId!=tuserId){
                     localStorage.setItem('userId', tuserId);
                     userId=tuserId;
                 }
@@ -34,6 +34,7 @@ export default{
                 context.dispatch('logout');
             }
             if (token && userId ) {
+                console.log("inside setting user");
                 context.commit('setUser', {userId: userId,expiresIn:expiresIn,token:token,isAdminLoggedIn:isAdmin});
             }
         }

@@ -1,11 +1,11 @@
 <template>
-    <div >
+    <div id="showContent">
     <h1>Faculty</h1>
     
     <base-card >
-    <input type="text" class="searchbar" v-model="searchkey" placeholder="Search..">
-    <button  @click="register">Register a new Faculty</button>
-    <h4 v-if="faculties.length==0">There are no faculty available</h4>
+    <input type="text" class="searchbar" v-model="searchkey" name="search" placeholder="Search..">
+    <button name="btn"  @click="register">Register a new Faculty</button>
+    <h4 v-if="faculties.length==1">There are no faculty available</h4>
     <p v-for="faculty in faculties" :key="faculty._id">
         <faculty-item  @messageFromChild="childMessageRecieved" v-if="!faculty.isAdmin" :id=faculty._id :email=faculty.email :created_at=faculty.created_at :modified_at=faculty.modified_at ></faculty-item> 
     </p>
@@ -87,22 +87,17 @@ export default {
   font-family: 'Montserrat', sans-serif;
   color: black;
 }
- h1{
-   text-align: center;
- }
 .searchbar {
+  border: 1px solid #ccc;
   float: right;
   padding: 6px;
-  border: none;
   margin-top: 8px;
   margin-right: 16px;
   font-size: 17px;
+ 
 }
 
-.searchbar {
-    border: 1px solid #ccc;
-  }
- 
+
 
 button {
   text-decoration: none;
@@ -141,6 +136,7 @@ button:active {
   background-color: #edd2ff;
 }
 h1{
+  text-align: center;
     font-family: 'Montserrat', sans-serif;
 }
 </style>

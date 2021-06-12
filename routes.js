@@ -30,7 +30,7 @@ const multer = require('multer');
 const path = require('path');
 
 const storage = multer.diskStorage({
-    destination: __dirname+'/public/upload/',
+    destination:  './public/upload/',
     filename: function(req, file, cb) {
       console.log("inside file naming");
       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
@@ -90,21 +90,21 @@ module.exports=(app)=>
     // })
  
     //Faculties
-    app.post('/fetchfaculties',FacultyFetchController.fetchfaculties)
+    app.get('/fetchfaculties',FacultyFetchController.fetchfaculties)
     app.post('/deletefaculty',FacultyFetchController.deleteFaculty)
     //Students
     app.post('/registerStudent',RegisterStudentController.registerStudent)
-    app.post('/fetchstudents',StudentFetchController.fetchstudents)
+    app.get('/fetchstudents',StudentFetchController.fetchstudents)
     app.post('/deletestudent',StudentFetchController.deletestudent)
-    app.get('/samplecasetest',StudentFetchController.samplecasetest)
+
 
     //forgetPassword
     app.post('/addForgetRequests',ForgetRequestController.newForgetRequest)
-    app.post('/fetchforgetrequest',ForgetRequestController.fetchforgetrequests)
+    app.get('/fetchforgetrequest',ForgetRequestController.fetchforgetrequests)
     app.post('/deleteforgetrequest',ForgetRequestController.deleteforgetrequests)
 
     //Authentication
-    app.post('/checkUser',AuthenticationController.checkUser)
+    app.get('/checkUser',passport.authenticate('jwt', { session: false }),AuthenticationController.checkUser)
 
 
 //SSE events
@@ -138,13 +138,14 @@ app.post('/deletepublication',EachFacultyProfileFetchController.deletepublicatio
 app.post('/deleteProject',EachFacultyProfileFetchController.deleteProject)
 
 
-app.post('/uploadProfilePhoto',EachFacultyProfileFetchController.addFacultyProfilePhoto );
+app.post('/uploadProfilePhoto',upload.single('profilepic'),EachFacultyProfileFetchController.addFacultyProfilePhoto );
 
 
 //AllFacultyProfiles
 app.post('/fetchallfacultyprofiles',AllFacultyProfileFetchController.fetchAllFacultyProfiles);
 
 //Sample
-// app.post('/sample',EachFacultyProfileFetchController.sample);
+app.post('/sample',EachFacultyProfileFetchController.sample);
+app.get('/sample',EachFacultyProfileFetchController.sample);
 
 }

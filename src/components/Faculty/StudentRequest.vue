@@ -4,23 +4,23 @@
             <div>
                 <div class="input">
                     <label class="label" for="studentRollNo">Please enter your roll number: </label>
-                    <input v-model="studentRollNo" type="text" class="txt">
+                    <input name="student_roll_no" v-model="studentRollNo" type="text" class="txt">
                 </div>
                 <div class="input">
                     <label class="label" for="studentToken">Please enter your token: </label>
-                    <input v-model="studentToken" type="text" class="txt">
+                    <input name="student_token" v-model="studentToken" type="text" class="txt">
                 </div>
                 <div class="input">
                     <label for="studentMessage">Please enter your message for the faculty: </label>  
                 </div>
                 <div class="input">
-                    <textarea v-model="studentMessage" name="" id="" cols="30" rows="10" class="textarea"></textarea>                     
+                    <textarea  v-model="studentMessage" name="messageForFaculty" id="" cols="30" rows="10" class="textarea"></textarea>                     
                 </div> 
                 <div class="input">
                    <p class="error">*{{error}}</p>
                 </div>
                 <div class="input">
-                    <button class="btn " @click="sentRequest()">Submit</button>
+                    <button class="btn " name="send" @click="sentRequest()">Submit</button>
                 </div>
                              
             </div>
@@ -42,7 +42,7 @@ export default {
      },
      methods:{
          opencloseDialog(){
-          
+            console.log("in");
              this.$emit('finished')
         },
         async sentRequest(){

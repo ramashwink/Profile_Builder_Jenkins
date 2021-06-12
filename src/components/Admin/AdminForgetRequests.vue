@@ -29,7 +29,8 @@ export default {
                 return true;
                }
             });
-
+            console.log("inside");
+            console.log(forgetrequests);
             return forgetrequests;
         }
     },
@@ -44,7 +45,7 @@ export default {
           }
         },
         async loadforgetrequests(){
-        
+          console.log("Inside forget requeeeeee");
             try {
                 await this.$store.dispatch('loadforgetrequests');
                 } 
@@ -65,16 +66,12 @@ h4{
 .searchbar {
   margin-left:60%;
   padding: 6px;
-  border: none;
   margin-top: 8px;
   margin-right: 16px;
   font-size: 17px;
+  border: 1px solid #ccc;
 }
 
-.searchbar {
-    border: 1px solid #ccc;
-  }
- 
   html {
   font-family: "Roboto", sans-serif;
   background-color: #ffffff;

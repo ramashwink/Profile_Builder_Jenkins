@@ -3,7 +3,7 @@
         <h2>Endorsements</h2>
         <div  v-for="facultyProfileEndorsement in facultyProfileEndorsements" :key="facultyProfileEndorsement._id">
             <div class="endorse_container">
-                <img :src="link(facultyProfileEndorsement.facultyendorsingId)" class="imagePreviewWrapper" :style="{ 'background-image': `url(${link(facultyProfileEndorsement.facultyendorsingId)})` }" >
+                <p class="imagePreviewWrapper" :style="{ 'background-image': `url(${link(facultyProfileEndorsement.facultyendorsingId)})` }" ></p>
                 <div class="endorse_container_profile">
                     <p class="name">{{facultyProfileEndorsement.facultyendorsingName}}</p>
                     <p class="date">{{date(facultyProfileEndorsement.endorsementdate)}}</p>
@@ -21,23 +21,26 @@ export default {
     props:['facultyProfileEndorsements','id','allprofiles_send'],
     methods:{
         link(feid){
+            console.log(this.facultyProfileEndorsements);
+            console.log(this.allprofiles_send);
+            console.log("Searching id"+feid);
             var address=""
+        
             this.allprofiles_send.filter(function(profile) {
                 if(profile._id ==feid){
                     address= profile.ProfilePhotoPath;
                 }
                 });
-          
+            console.log("KKKKKKKKKKKKKKKKKKKKKKKkk");
             if(address==null){
-                    return "https://i.stack.imgur.com/l60Hf.png"
+                    return "http://localhost:8081/upload/"+"default.png";
                  }
-            return address;
+            return "http://localhost:8081/upload/"+address.replace(/^.*[\\]/, '');
         },
         date(date){
             var d = new Date(date);
             var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-            var s=months[d.getMonth()]+" "+d.getFullYear();
-            return s;
+            return months[d.getMonth()]+" "+d.getFullYear();
         },
     }
 

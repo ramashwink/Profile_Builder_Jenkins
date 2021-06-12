@@ -23,7 +23,7 @@ export default {
   },
     created() {
     this.$store.dispatch('loadforgetrequests');
-
+    console.log(this.$route.params.load);
     if(this.$route.params.load=="Student"){
         this.gotoComponent='Student'
     }

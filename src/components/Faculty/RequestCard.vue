@@ -11,12 +11,17 @@
             </div>
                 <div class="padding">
                     <div class="card_container"> 
-                        <i @click="sendEmail(request)" class="far fa-check-circle"></i>
-                        <i  @click="reject()" class="far fa-times-circle"></i>
+<<<<<<< HEAD
+                        <i @click="sendEmail(request)" name="accept" class="far fa-check-circle"></i>
+                        <i  @click="reject()" name="reject" class="far fa-times-circle"></i>
+=======
+                        <em @click="sendEmail(request)" class="far fa-check-circle"></em>
+                        <em  @click="reject()" class="far fa-times-circle"></em>
+>>>>>>> 14fd8570e6e3468969ef805ec7425d2a8fb1ffbf
                     </div>
                 </div>  
         </div> 
-            <p @click="show()" class="show">Show Description</p>
+            <p @click="show()" class="show" name="description">Show Description</p>
         <hr>     
     </div>   
 </template>
@@ -40,7 +45,7 @@ export default {
         },
         async sendEmail(req){
                 var to_send=req.studentRollNo+"@cb.students.amrita.edu";
-                
+                console.log(to_send);
                 var data = {
                     service_id: 'service_i58bij8',
                     template_id: 'template_wvfft2d',
@@ -49,7 +54,7 @@ export default {
                         to_name: this.facultyProfileOne.studentRollNo,
                         from_name:'Profile Builder',
                         to_mail:to_send,
-                        message: "Your Request has been accepted by "+this.facultyProfileOne.FirstName+" "+this.facultyProfileOne.LastName+".You can further contact him on "+this.facultyProfileOne.requestContactMe,
+                        message: "Your Request has been accepted by "+this.facultyProfileOne.FirstName+" "+this.facultyProfileOne.LastName+".You can further contact him on "+this.facultyProfileOne.PhoneNo,
                         reply_to:"This is a test for a college Project. For further queries contact us at admin@gmail.com"                       
                     }
                 };
@@ -57,6 +62,7 @@ export default {
                         await FetchingEachFacultyProfile.sendEmail(data);
                         await FetchingEachFacultyProfile.updateRequest({id:this.facultyProfileOne._id,request:this.request})
                     } catch(error) {
+                        console.log("There is an error");
                         console.log({error})
                     }
                 this.$emit('reload');

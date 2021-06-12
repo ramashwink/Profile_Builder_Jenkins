@@ -3,17 +3,22 @@
         <the-header></the-header>
        <div class="main-block">
         <h1>Add a new student </h1>
+<<<<<<< HEAD
         <label id="icon" for="name"><i class="fas fa-user"></i></label>
+        <input type="text" name="studentRollNo" placeholder="Student Roll Number" v-model="studentRollNo" autocomplete="new-password">
+=======
+        <label id="icon" for="name"><em class="fas fa-user"></em></label>
         <input type="text" name="student_roll_no" placeholder="Student Roll Number" v-model="studentRollNo" autocomplete="new-password">
+>>>>>>> 14fd8570e6e3468969ef805ec7425d2a8fb1ffbf
         <br>
-        <label id="icon" for="token"><i class="fas fa-key"></i></label>
+        <label id="icon" for="token"><em class="fas fa-key"></em></label>
         <input type='text' name="student_token" placeholder="Student Token" v-model="student_token" autocomplete="new-password">
         <br>
         <div>
             <p class="error" v-if="error!=''">{{error}}</p>
         </div>
         <div class='btn-block'>
-        <button @click="registerStudent">Register</button>
+        <button @click="registerStudent" name="register">Register</button>
         </div>
     </div>
 </div>
@@ -31,13 +36,13 @@ export default {
     },
     methods:{
         async registerStudent(){
-          
+            console.log("Button Was clicked the email is "+this.studentRollNo+" "+this.student_token);
             try {
                   const response =await RegisterStudent.registerStudent({ studentRollNo:this.studentRollNo,student_token:this.student_token})
                   if(response.data.registration=="Successfull"){
                       this.$router.replace({name: 'admin', params: { load: "Student" }});
                   }
-               
+                console.log(response);
             } catch (error) {
                 this.error=error.response.data.error;
             }

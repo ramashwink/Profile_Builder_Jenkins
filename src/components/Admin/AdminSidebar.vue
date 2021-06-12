@@ -1,13 +1,23 @@
 <template>
 <div class="container"> 
         <div class="navigation-icons">
-             <i @click="executeFaculty" class="fas fa-chalkboard-teacher"></i>
+<<<<<<< HEAD
+             <i name="faculty" @click="executeFaculty" class="fas fa-chalkboard-teacher"></i>
             <p class="center">Faculty</p>
             <hr >
-            <i @click="executeStudent" class="fas fa-user-graduate "></i>
+            <i name="student" @click="executeStudent" class="fas fa-user-graduate "></i>
             <p class="center">Student</p>
             <hr >
-            <i  @click="executeForgetRequests" class="far fa-comments  "></i>
+            <i name="request" @click="executeForgetRequests"  class="far fa-comments  "></i>
+=======
+             <em @click="executeFaculty" class="fas fa-chalkboard-teacher"></em>
+            <p class="center">Faculty</p>
+            <hr >
+            <em @click="executeStudent" class="fas fa-user-graduate "></em>
+            <p class="center">Student</p>
+            <hr >
+            <em  @click="executeForgetRequests" class="far fa-comments  "></em>
+>>>>>>> 14fd8570e6e3468969ef805ec7425d2a8fb1ffbf
             <p class="center notification">Requests <span v-if="noofrequests>0" class="badge">{{noofrequests}}</span></p>
          
        
@@ -19,12 +29,9 @@
 export default {
     computed:{
         noofrequests(){
-           
+            console.log(this.$store.getters.noofforgetrequests);
             return this.$store.getters.noofforgetrequests;
         }
-    },
-    created(){
-
     },
     methods:{
         executeStudent(){
@@ -86,7 +93,7 @@ hr {width: 100%;margin-left: auto;margin-right: auto;}
       width: 50px;
       margin-bottom: 10px;
     }
-    .contol i {
+    .contol em {
         font-size: 2rem;
         
         cursor: pointer;
@@ -102,14 +109,14 @@ hr {width: 100%;margin-left: auto;margin-right: auto;}
       float: left;
      
     }
-    .navigation-icons i {
+    .navigation-icons em {
         font-size: 2rem;
         padding: 20px 0 0px 0;
         
         cursor: pointer;
         transition: all .5s ease-in-out;
     }
-    i:hover {
+    em:hover {
           color: #fff;
           
         }

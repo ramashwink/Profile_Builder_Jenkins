@@ -13,7 +13,7 @@ export default{
     },
     async checkupdatefaculties(context){ 
         
-         source = new EventSource('https://profile-builder-deploy.herokuapp.com/check-faculty-updates');
+         source = new EventSource('http://localhost:8081/check-faculty-updates');
          source.onmessage = function(e) {
              const faculties=[];
           

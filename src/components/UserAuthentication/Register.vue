@@ -24,7 +24,7 @@ export default {
     },
     methods:{
         async register(){
-       
+            console.log("Button Was clicked the email is "+this.email+" "+this.password);
             try {
                   const response =await AuthenticateService.register({
                 email:this.email,
@@ -36,7 +36,6 @@ export default {
                 this.error=error.response.data.error;
             }
           
-         
         
         }
     }

@@ -5,11 +5,11 @@
          <base-card>
             <h1>Find your faculty.</h1>
             <div class='search-bar'>
-                  <input type="text" v-model="search" class='mainbar input' v-if="publication" placeholder="Enter Publication">
-                  <input type="text" v-model="search" class='mainbar input' v-else-if="skills" placeholder="Enter Skills">
-                  <input type="text" v-model="search" class='mainbar input' v-else-if="project" placeholder="Enter Projects">
-                   <input type="text" v-model="search" class='mainbar input' v-else placeholder="Search">
-                  <input type="text" v-model="location" class="locationbar input" placeholder="Location">
+                  <input type="text" v-model="search" name="Search" class='mainbar input' v-if="publication" placeholder="Enter Publication">
+                  <input type="text" v-model="search" name="Search" class='mainbar input' v-else-if="skills" placeholder="Enter Skills">
+                  <input type="text" v-model="search"  name="Search" class='mainbar input' v-else-if="project" placeholder="Enter Projects">
+                   <input type="text" v-model="search" name="Search" class='mainbar input' v-else placeholder="Search">
+                  <input type="text" v-model="location" name="Search" class="locationbar input" placeholder="Location">
               </div>
               <div class="filters">
                 <button type="button" id="publications" class="filter-btn" :class="{'blue-color':publication===true}" @click="togglePublication()">Publication</button>
@@ -33,9 +33,14 @@
           <base-card v-if="search!=''"> 
           <h4 class="heading">Search Results</h4>
              <h5 class="msg" v-if="searchedProfile().length==0">No search Results</h5>
-             <div v-on:click="goToSearch(facultyprofile)" class="eachpeople" v-for="facultyprofile in searchedProfile()" :key="facultyprofile._id">
+             <div name="faculty" v-on:click="goToSearch(facultyprofile)" class="eachpeople" v-for="facultyprofile in searchedProfile()" :key="facultyprofile._id">
                <search-item >
-                  <img :src="facultyprofile.ProfilePhotoPath" :style="{ 'background-image': `url(${converturl(facultyprofile.ProfilePhotoPath) })` }"  class="profile-picture" />
+<<<<<<< HEAD
+                <div :style="{ 'background-image': `url(${converturl(facultyprofile.ProfilePhotoPath) })` }"  class="profile-picture"  />
+=======
+                <div :style="{ 'background-image': `url(${converturl(facultyprofile.ProfilePhotoPath) })` }"  class="profile-picture" />
+                <ul>
+>>>>>>> 14fd8570e6e3468969ef805ec7425d2a8fb1ffbf
                   <li class="name">
                     {{facultyprofile.FirstName}} {{facultyprofile.LastName}}  
                   </li>
@@ -44,7 +49,8 @@
                   </li>
                   <li class="city">
                     {{facultyprofile.City}}
-                  </li>    
+                  </li>                    
+                </ul>  
                 </search-item> 
              </div>
           </base-card>
@@ -52,7 +58,8 @@
           <h4 class="heading">People You May Know</h4>
              <div class="eachpeople" v-for="facultyprofile in allFacultyProfiles" :key="facultyprofile._id">
                <search-item>
-                <img :src="facultyprofile.ProfilePhotoPath" :style="{ 'background-image': `url(${converturl(facultyprofile.ProfilePhotoPath)})` }"  class="profile-picture" />
+                <div :style="{ 'background-image': `url(${converturl(facultyprofile.ProfilePhotoPath) })` }"  class="profile-picture" />
+                <ul>
                   <li class="name">
                     {{facultyprofile.FirstName}} {{facultyprofile.LastName}}  
                   </li>
@@ -61,7 +68,9 @@
                   </li>
                   <li class="city">
                     {{facultyprofile.City}}
-                  </li>    
+                  </li>
+                </ul>
+    
                 </search-item> 
              </div>
           </base-card>
@@ -80,7 +89,7 @@ export default {
   },
   data(){
     return{
-      serverpath:"https://profile-builder-deploy.herokuapp.com/",
+      serverpath:"http://localhost:8081/upload/ ",
       available:false,
       publication:false,
       skills:false,
@@ -100,21 +109,23 @@ export default {
         return false;
       }
     },
-      allFacultyProfiles(){
-            let allfacultyprofiles = this.$store.getters['allFacultyProfiles'];
+       allFacultyProfiles(){
+            var allfacultyprofiles = this.$store.getters['allFacultyProfiles'];
+            console.log("ALL FACULTY PROFILES");
+            console.log(allfacultyprofiles);
             var user_id=this.$store.getters.idofuserloggedIn;
             var facultyprofile=allfacultyprofiles.find(item => item._id ===user_id );
             var profiles;
-     
-            profiles=allfacultyprofiles.filter((Fprofile) => {
-                  if (Fprofile.Department.includes(facultyprofile.Department) && Fprofile._id!=this.$store.getters.idofuserloggedIn ) {
+            console.log("FFFFFFFFFFF");
+            console.log(allfacultyprofiles);
+            profiles=allfacultyprofiles.filter((profile) => {
+                  if (profile.Department.includes(facultyprofile.Department) && profile._id!=this.$store.getters.idofuserloggedIn ) {
                     return true;
                   }
                 });
            profiles= this.shuffle(profiles);
-         
-            var tprofiles = profiles.slice(1, 4);
-            return tprofiles;
+            console.log("Inside all faculty Profiels");
+            return profiles.slice(1, 4);
         },
     },
     methods: {
@@ -129,10 +140,11 @@ export default {
       searchedProfile(){
         var rprofiles;
         let profiles = this.$store.getters['allFacultyProfiles'];
-
+        console.log(profiles);
+        console.log(this.search);
         if(this.publication==true && this.search!=""){
            rprofiles=profiles.filter((profiles) => {
-              
+                console.log(profiles);
                var publications=profiles.publications.filter((publication)=>{
                   if (publication.publicationName.toUpperCase().includes(this.search.toUpperCase()) ) {
                     return true;
@@ -171,7 +183,7 @@ export default {
         }
        else if(this.skills==true && this.search!=""){
            rprofiles=profiles.filter((profiles) => {
-               
+                console.log(profiles);
                var preferences=profiles.preferences.filter((preference)=>{
                   if (preference.toUpperCase().includes(this.search.toUpperCase()) ) {
                     return true;
@@ -249,7 +261,7 @@ export default {
             }
         return rprofiles;
         } 
-      
+     
         else if(  this.publication==false && this.skills==false && this.project==false && this.search!=""){
           rprofiles=profiles.filter((allFacultyProfile) => {
               if (allFacultyProfile.FirstName.toUpperCase().includes(this.search.toUpperCase()) || allFacultyProfile.LastName.toUpperCase().includes(this.search.toUpperCase())  && allFacultyProfile._id!=this.$store.getters.idofuserloggedIn ) {
@@ -310,17 +322,19 @@ export default {
         this.available=false;
       },
       converturl(filepath){
+        console.log("inside ffffffffffff");
+           
               var fileloc="";
               if(filepath!=null)
               {
                 var filename = filepath.replace(/^.*[\\]/, '');
-              fileloc=filename;
+              fileloc="http://localhost:8081/upload/"+filename;
               }
               else
               {
-                  fileloc="https://i.stack.imgur.com/l60Hf.png";
+                  fileloc="http://localhost:8081/upload/"+"default.png";
               }
-            
+               console.log(fileloc);
               return fileloc;
       },
      

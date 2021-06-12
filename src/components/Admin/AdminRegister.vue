@@ -4,11 +4,11 @@
         <div class="main-block">
         
         <h1>Add a new faculty </h1>
-        <label id="icon" for="name"><i class="fas fa-user"></i></label>
+        <label id="icon" for="name"><em class="fas fa-user"></em></label>
 
         <input type="email" name="email" placeholder="Email" v-model="email" autocomplete="new-password">
         <br>
-        <label id="icon" for="name"><i class="fas fa-key"></i></label>
+        <label id="icon" for="name"><em class="fas fa-key"></em></label>
 
         <input type="password" name="password" placeholder="Password" v-model="password" autocomplete="new-password">
         <br>
@@ -16,7 +16,7 @@
             <p class="error" v-if="error!=''">{{error}}</p>
         </div>
         <div class="btn-block">
-        <button @click="register">Register</button>
+        <button @click="register" name="register">Register</button>
         </div>
     </div>
     </div>
@@ -34,15 +34,15 @@ export default {
     },
     methods:{
         async register(){
-         
+            console.log("Button Was clicked the email is "+this.email+" "+this.password);
             try {
                   const response =await AuthenticateService.register({email:this.email,password:this.password,isAdmin:false})
                   if(response.data.registration=="Successfull"){
                       this.$router.replace({name: 'admin', params: { load: "Faculty" }});
                   }
-               
+                console.log(response);
             } catch (error) {
-               
+                console.log(error);
                 this.error=error.response.data.error;
             }
         }

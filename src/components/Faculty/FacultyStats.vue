@@ -27,8 +27,8 @@
                     <div class="Week" v-if="week">
                         <h2 class="card_heading">Week-Wise Statistics</h2>
                         <div class="tab">
-                            <button  type="button" @click="WeeklyTab()">Faculty View Counts</button>
-                            <button type="button" @click="WeeklyTab()">Other View Counts</button>
+                            <button  type="button" name="facultyViewCount" @click="WeeklyTab()">Faculty View Counts</button>
+                            <button type="button" name="otherViewCount" @click="WeeklyTab()">Other View Counts</button>
                         </div>
 
                         <div v-if="!facultyWeekly">
@@ -40,8 +40,8 @@
                             <apexchart  width="800" height="500" type="bar" :options="fchartOptions" :series="fseries"></apexchart>
                         </div>
                         <div class="tab">
-                            <button  type="button" @click="ChangeTo()">Weekly</button>
-                            <button type="button" @click="ChangeTo()">Monthly</button>
+                            <button  type="button" name="weekly" @click="ChangeTo()">Weekly</button>
+                            <button type="button" name="monthly" @click="ChangeTo()">Monthly</button>
                         </div>
                     </div>
                     <div  v-if="!week" class="Month">
@@ -242,7 +242,7 @@ export default {
             {
 
                 await this.$store.dispatch("loadthefacultyprofile",{id:this.facultyId});
-              
+                console.log("finished");
                 this.loaded=true
             },
 
@@ -281,7 +281,6 @@ export default {
  
     justify-content: center;
     align-items: center;
-    /*  */
 }
 .h3_heading{
         font-family: 'Quicksand', sans-serif;
@@ -294,7 +293,6 @@ export default {
 .stats{
     position: absolute;
     margin: 0;
-    position: absolute;
     top: 85%;
     left: 50%;
     transform: translate(-50%, -38%);
